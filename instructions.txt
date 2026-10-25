@@ -1,0 +1,26 @@
+Go to .env, there are 3 wallets there.
+send 0.1 bot each to the 3 wallets (from concord wallet in cast wallet)
+I need at least 8 transactions from each wallets, so use each wallet to make 2 proposals (thats total of 6 proposals), then use each wallet to vote on the whole 6 proposals, u can random the choice like for or against or abstain
+
+use the proposals below
+
+1. Add a community faucet
+Set up a faucet so new users can get test BOT to try the dapp.
+
+2. Launch a weekly community call
+Hold a weekly voice or video call to discuss updates and answer questions.
+
+3. Create a bug bounty pool
+Set aside a small fund to reward people who find and report bugs.
+
+4. Translate the docs into 3 languages
+Translate the guides and FAQ to make the project easier to join.
+
+5. Redesign the project website
+Refresh the website with a cleaner layout and simpler onboarding.
+
+6. Hold a hackathon
+Run a 2-week online hackathon with prizes for the best apps built on BotChain.
+
+
+  
