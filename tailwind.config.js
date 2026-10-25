@@ -19,12 +19,15 @@ export default {
           accent: "#00F29D",
         },
         civic: {
-          darkBg: "#0B0D13",
-          darkCard: "#12151F",
-          darkBorder: "#202534",
-          lightBg: "#F8FAFC",
+          darkBg: "#070A10",       // Deep luxurious midnight obsidian
+          darkCard: "#0F131D",     // Sleek slate navy card surface
+          darkCardHover: "#161B29",// Interactive hover card
+          darkBorder: "#1C2333",   // Subtle refined dark border
+          darkBorderGlow: "#2D3748",
+          lightBg: "#F6F8FA",      // Crisp editorial porcelain
           lightCard: "#FFFFFF",
-          lightBorder: "#E2E8F0",
+          lightCardHover: "#F9FAFB",
+          lightBorder: "#E3E8EE",
         },
       },
       fontFamily: {

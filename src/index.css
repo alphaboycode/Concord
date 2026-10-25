@@ -8,7 +8,16 @@
   }
 
   body {
-    @apply selection:bg-brand-500/20 selection:text-brand-700 dark:selection:text-brand-300;
+    @apply selection:bg-brand-500/20 selection:text-brand-700 dark:selection:text-brand-300 min-h-screen text-slate-800 dark:text-slate-100;
+    background-color: #F6F8FA;
+    background-image: radial-gradient(circle at 50% -20%, rgba(16, 185, 129, 0.05) 0%, rgba(6, 182, 212, 0.02) 40%, transparent 70%);
+    background-attachment: fixed;
+  }
+
+  .dark body {
+    background-color: #070A10;
+    background-image: radial-gradient(circle at 50% -20%, rgba(16, 185, 129, 0.08) 0%, rgba(6, 182, 212, 0.04) 35%, transparent 70%);
+    background-attachment: fixed;
   }
 
   /* Custom subtle scrollbar */
