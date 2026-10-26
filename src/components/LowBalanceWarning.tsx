@@ -30,7 +30,7 @@ export const LowBalanceWarning: React.FC = () => {
         <div className="flex items-center space-x-2 text-sky-800 dark:text-sky-300">
           <Coins className="w-4 h-4 flex-shrink-0 text-sky-600 dark:text-sky-400" />
           <span>
-            <strong>Low BOT Balance:</strong> You need native <strong>BOT</strong> tokens to cover gas fees for voting and proposing on BotChain Testnet.
+            <strong>Low BOT Balance:</strong> You need native <strong>BOT</strong> tokens to cover gas fees for voting and proposing on {botchain.name}.
           </span>
         </div>
 

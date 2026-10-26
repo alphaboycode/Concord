@@ -15,9 +15,9 @@ remappings = [
 ]
 
 [rpc_endpoints]
-# BotChain Testnet RPC configured directly (no .env required)
-botchain = "https://rpc.bohr.life"
+# BotChain Mainnet RPC (Chain ID: 677)
+botchain = "https://rpc.botchain.ai"
 local = "http://127.0.0.1:8545"
 
 [etherscan]
-# BotChain custom explorer at https://scan.bohr.life
+# BotChain mainnet explorer at https://scan.botchain.ai

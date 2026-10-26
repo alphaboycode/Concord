@@ -1,3 +1,32 @@
+Now deploy on botchain mainnet
+
+Main net
+Chain ID：677
+
+RPC：https://rpc.botchain.ai
+
+Native Token：BOT
+
+Total Supply：150 Million
+
+Explorer：https://scan.botchain.ai
+
+use the concord wallet from cast wallet, check .env for PASSWORD
+
+
+Now add these in the footer 
+
+Proof on bot mainnet 
+Chain id: 677
+Contract: deployed contract address
+
+BOT Chain Website (make it a hyperlink) https://www.botchain.ai/en/
+
+BOTScan explorer (make it a hyperlink) https://scan.botchain.ai/
+
+
+
+
 Go to .env, there are 3 wallets there.
 send 0.1 bot each to the 3 wallets (from concord wallet in cast wallet)
 I need at least 8 transactions from each wallets, so use each wallet to make 2 proposals (thats total of 6 proposals), then use each wallet to vote on the whole 6 proposals, u can random the choice like for or against or abstain

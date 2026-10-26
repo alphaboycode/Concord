@@ -3,7 +3,7 @@
 > **Democratic, Gas-Optimized Governance Protocol on BotChain**  
 > *One Address, One Vote. Zero Whale Plutocracy. 100% On-Chain Consensus.*
 
-[![BotChain Testnet](https://img.shields.io/badge/BotChain%20Testnet-Chain%20968-10B981?style=for-the-badge&logo=ethereum&logoColor=white)](https://scan.bohr.life/)
+[![BotChain Mainnet](https://img.shields.io/badge/BotChain%20Mainnet-Chain%20677-10B981?style=for-the-badge&logo=ethereum&logoColor=white)](https://scan.botchain.ai/)
 [![Solidity](https://img.shields.io/badge/Solidity-^0.8.24-38BDF8?style=for-the-badge&logo=solidity&logoColor=white)](https://soliditylang.org/)
 [![Foundry](https://img.shields.io/badge/Foundry-Tested-F59E0B?style=for-the-badge&logo=gear&logoColor=white)](https://getfoundry.sh/)
 [![React + Vite](https://img.shields.io/badge/Frontend-React%20+%20Vite%20+%20Wagmi-8B5CF6?style=for-the-badge&logo=react&logoColor=white)](https://vitejs.dev/)
@@ -20,34 +20,35 @@ Concord solves this by implementing an egalitarian **1-address-1-vote** governan
 
 ---
 
-## 🚀 Live BotChain Testnet Deployment
+## 🚀 Live BotChain Mainnet Deployment
 
-The Concord voting protocol is live, verified, and executing proposals on **BotChain Testnet**:
+The Concord voting protocol is live, verified, and executing proposals on **BotChain Mainnet**:
 
 | Parameter | Value |
 | :--- | :--- |
-| **Network Name** | BotChain Testnet |
-| **Chain ID** | `968` |
-| **RPC Endpoint** | `https://rpc.bohr.life` |
-| **Native Currency** | `BOT` (18 decimals) |
-| **Block Explorer** | [https://scan.bohr.life](https://scan.bohr.life) |
-| **Deployed Contract** | [`0xcEEfCA9caAFB95cdC6CC467A290C2de02E37224B`](https://scan.bohr.life/address/0xcEEfCA9caAFB95cdC6CC467A290C2de02E37224B) |
-| **Contract Owner** | [`0xeB2b407681D788eDdb88Cd3ae6051dB146d694a1`](https://scan.bohr.life/address/0xeB2b407681D788eDdb88Cd3ae6051dB146d694a1) |
+| **Network Name** | BotChain Mainnet |
+| **Chain ID** | `677` |
+| **RPC Endpoint** | `https://rpc.botchain.ai` |
+| **Native Currency** | `BOT` (18 decimals, 150M Total Supply) |
+| **Official Website** | [https://www.botchain.ai/en/](https://www.botchain.ai/en/) |
+| **Block Explorer (BOTScan)** | [https://scan.botchain.ai](https://scan.botchain.ai) |
+| **Deployed Contract** | [`0xD84406d900abae0d6C572a5ae20f21c04Fd9AB49`](https://scan.botchain.ai/address/0xD84406d900abae0d6C572a5ae20f21c04Fd9AB49) |
+| **Contract Owner** | [`0xeB2b407681D788eDdb88Cd3ae6051dB146d694a1`](https://scan.botchain.ai/address/0xeB2b407681D788eDdb88Cd3ae6051dB146d694a1) |
 
 ---
 
 ## 📊 Live On-Chain Proposals & Verified Activity
 
-The contract currently hosts 6 live community proposals created across 3 distinct testnet accounts, with 18 verified on-chain votes cast and tallied:
+The contract currently hosts 6 live community proposals created across 3 distinct accounts, with 18 verified on-chain votes cast and tallied:
 
-| ID | Proposal Title & Details | Proposer | For | Against | Abstain | On-Chain Consensus |
+| ID | Proposal Title & Details | Proposer | For | Against | Abstain | Status |
 | :---: | :--- | :---: | :---: | :---: | :---: | :---: |
-| **#1** | **2. Launch a weekly community call**<br>_Weekly voice/video sync for project updates._ | `Wallet 1` | 2 (67%) | 0 (0%) | 1 (33%) | **Passed (Quorum Met)** |
-| **#2** | **4. Translate the docs into 3 languages**<br>_Guides and FAQ translation for global reach._ | `Wallet 2` | 2 (67%) | 1 (33%) | 0 (0%) | **Passed (Majority)** |
-| **#3** | **1. Add a community faucet**<br>_Faucet setup for test BOT onboarding._ | `Wallet 1` | 3 (100%) | 0 (0%) | 0 (0%) | **Unanimous Pass** |
-| **#4** | **3. Create a bug bounty pool**<br>_Incentive pool for security vulnerability reports._ | `Wallet 2` | 2 (67%) | 1 (33%) | 0 (0%) | **Passed (Majority)** |
-| **#5** | **5. Redesign the project website**<br>_Cleaner layout and streamlined developer onboarding._ | `Wallet 3` | 2 (67%) | 1 (33%) | 0 (0%) | **Passed (Majority)** |
-| **#6** | **6. Hold a hackathon**<br>_2-week virtual hackathon for BotChain dApps._ | `Wallet 3` | 1 (33%) | 1 (33%) | 1 (33%) | **Tie / Active Window** |
+| **#1** | **1. Add a community faucet**<br>_Set up a faucet so new users can get test BOT to try the dapp._ | `Wallet 1` (`0xCc7A...F3E4`) | 2 | 0 | 1 | **Active (Quorum Met)** |
+| **#2** | **2. Launch a weekly community call**<br>_Hold a weekly voice or video call to discuss updates and answer questions._ | `Wallet 1` (`0xCc7A...F3E4`) | 2 | 1 | 0 | **Active (Quorum Met)** |
+| **#3** | **3. Create a bug bounty pool**<br>_Set aside a small fund to reward people who find and report bugs._ | `Wallet 2` (`0xC376...4d5f`) | 2 | 1 | 0 | **Active (Quorum Met)** |
+| **#4** | **4. Translate the docs into 3 languages**<br>_Translate the guides and FAQ to make the project easier to join._ | `Wallet 2` (`0xC376...4d5f`) | 2 | 1 | 0 | **Active (Quorum Met)** |
+| **#5** | **5. Redesign the project website**<br>_Refresh the website with a cleaner layout and simpler onboarding._ | `Wallet 3` (`0xb439...49Dc`) | 2 | 0 | 1 | **Active (Quorum Met)** |
+| **#6** | **6. Hold a hackathon**<br>_Run a 2-week online hackathon with prizes for the best apps built on BotChain._ | `Wallet 3` (`0xb439...49Dc`) | 2 | 1 | 0 | **Active (Quorum Met)** |
 
 ---
 

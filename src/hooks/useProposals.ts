@@ -11,7 +11,7 @@ const DEMO_PROPOSALS: ProposalItem[] = [
     proposer: "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199",
     title: "BIP-01: Activate Gas Oracle Subsidies for Civic Proposers",
     description:
-      "This proposal initiates an automated gas subsidy pool on BotChain Testnet to offset transaction fees for verified governance contributors. Passing this will allocate 50,000 BOT from the community treasury towards micro-grants for civic proposers.",
+      "This proposal initiates an automated gas subsidy pool on BotChain Mainnet to offset transaction fees for verified governance contributors. Passing this will allocate 50,000 BOT from the community treasury towards micro-grants for civic proposers.",
     startTime: Math.floor(Date.now() / 1000) - 86400,
     endTime: Math.floor(Date.now() / 1000) + 172800, // 2 days left
     forVotes: 48,

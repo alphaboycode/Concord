@@ -193,7 +193,7 @@ export const ProposalDetail: React.FC<ProposalDetailProps> = ({
         id: "pending-vote",
         type: "pending",
         title: "Broadcasting Ballot...",
-        message: "Waiting for BotChain Testnet block confirmation.",
+        message: `Waiting for ${botchain.name} block confirmation.`,
         txHash: hash,
       });
     } catch (err: any) {
@@ -260,7 +260,7 @@ export const ProposalDetail: React.FC<ProposalDetailProps> = ({
   if (!isConnected) {
     disableVoteReason = "Connect your wallet above to cast your ballot.";
   } else if (!isCorrectNetwork) {
-    disableVoteReason = "Switch network to BotChain Testnet (ID 968) to participate.";
+    disableVoteReason = `Switch network to ${botchain.name} (ID ${botchain.id}) to participate.`;
   } else if (hasVoted) {
     disableVoteReason = "You have already cast your single vote for this proposal.";
   } else if (proposal.state !== ProposalState.Active) {

@@ -115,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCreate, isOwner }) => {
           </a>
 
           <a
-            href={`https://scan.bohr.life/address/${CONTRACT_ADDRESS}`}
+            href={addressUrl(CONTRACT_ADDRESS)}
             target="_blank"
             rel="noreferrer"
             className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-white dark:hover:bg-slate-800 transition-all shadow-sm"
@@ -146,7 +146,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCreate, isOwner }) => {
             </span>
             <span className="font-semibold">{botchain.name}</span>
             <span className="font-mono text-[10px] text-emerald-600/80 dark:text-emerald-400/70 bg-emerald-500/20 px-1.5 py-0.5 rounded">
-              968
+              {botchain.id}
             </span>
           </div>
 

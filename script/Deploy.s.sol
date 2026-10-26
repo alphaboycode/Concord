@@ -6,11 +6,11 @@ import {ConcordVoting} from "../src/ConcordVoting.sol";
 
 /**
  * @title DeployScript
- * @notice Foundry deployment script for ConcordVoting on BotChain Testnet (Chain ID: 968)
+ * @notice Foundry deployment script for ConcordVoting on BotChain Mainnet (Chain ID: 677)
  * @dev Deploys using the cast keystore account `concord`:
- *      forge script script/Deploy.s.sol --rpc-url botchain --chain-id 968 --account concord --password papa4mama4 --broadcast
+ *      forge script script/Deploy.s.sol --rpc-url botchain --chain-id 677 --account concord --password papa4mama4 --broadcast
  *      Add `--legacy` if BotChain RPC does not support EIP-1559 transactions:
- *      forge script script/Deploy.s.sol --rpc-url botchain --chain-id 968 --account concord --password papa4mama4 --broadcast --legacy
+ *      forge script script/Deploy.s.sol --rpc-url botchain --chain-id 677 --account concord --password papa4mama4 --broadcast --legacy
  */
 contract DeployScript is Script {
 
@@ -19,7 +19,7 @@ contract DeployScript is Script {
 
     function run() external returns (ConcordVoting voting) {
         console.log("--------------------------------------------------");
-        console.log("Deploying ConcordVoting to BotChain Testnet (ID 968)");
+        console.log("Deploying ConcordVoting to BotChain Mainnet (ID 677)");
         console.log("Using Cast Keystore Account: concord");
         console.log("--------------------------------------------------");
 
@@ -47,7 +47,7 @@ contract DeployScript is Script {
         console.log("==================================================");
         console.log("NEXT STEP: Update src/config.ts line 49 with this address:");
         console.log("export const CONTRACT_ADDRESS = \"%s\";", address(voting));
-        console.log("View contract on explorer: https://scan.bohr.life/address/%s", address(voting));
+        console.log("View contract on explorer: https://scan.botchain.ai/address/%s", address(voting));
         console.log("==================================================");
 
         return voting;

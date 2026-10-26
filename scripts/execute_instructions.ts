@@ -111,13 +111,13 @@ async function waitForTx(hash: `0x${string}`) {
   console.log(`  Tx Hash: ${hash}`);
   const receipt = await publicClient.waitForTransactionReceipt({ hash });
   console.log(`  Included in block ${receipt.blockNumber} (status: ${receipt.status})`);
-  await sleep(2000);
+  await sleep(1500);
   return receipt;
 }
 
 async function main() {
   console.log("==================================================");
-  console.log("EXECUTING instructions.txt ON BOTCHAIN TESTNET");
+  console.log("EXECUTING instructions.txt ON BOTCHAIN MAINNET (Chain ID: 677)");
   console.log("Contract Address:", CONTRACT_ADDRESS);
   console.log("Concord Wallet (Deployer):", concordAccount.address);
   console.log("Wallet 1:", wallet1Account.address);
@@ -130,8 +130,10 @@ async function main() {
   });
   console.log("Concord Balance:", formatEther(initialBalance), "BOT");
 
-  // Step 1: Send 0.1 BOT each to the 3 wallets
-  console.log("\n[Step 1] Sending 0.1 BOT each to Wallet 1, Wallet 2, Wallet 3...");
+  const gasPrice = 20000000000n; // 20 Gwei fixed on BotChain
+
+  // Step 1: Ensure 0.1 BOT each in the 3 wallets
+  console.log("\n[Step 1] Checking / Funding 0.1 BOT to Wallet 1, Wallet 2, Wallet 3...");
   const wallets = [
     { num: 1, account: wallet1Account, client: wallet1Client },
     { num: 2, account: wallet2Account, client: wallet2Client },
@@ -143,23 +145,29 @@ async function main() {
     console.log(
       `Wallet ${w.num} (${w.account.address}) current balance: ${formatEther(bal)} BOT`
     );
-    console.log(`Sending 0.1 BOT to Wallet ${w.num}...`);
-    const hash = await concordClient.sendTransaction({
-      to: w.account.address,
-      value: parseEther("0.1"),
-    });
-    await waitForTx(hash);
+    if (bal < parseEther("0.1")) {
+      const toSend = parseEther("0.1") - bal;
+      console.log(`Sending ${formatEther(toSend)} BOT to Wallet ${w.num}...`);
+      const hash = await concordClient.sendTransaction({
+        to: w.account.address,
+        value: toSend,
+        gasPrice,
+      });
+      await waitForTx(hash);
+    } else {
+      console.log(`Wallet ${w.num} is already funded with >= 0.1 BOT.`);
+    }
   }
 
   // Step 2: Ensure 6 proposals exist with 2 proposals per wallet
-  console.log("\n[Step 2] Checking and Creating Proposals (2 from each wallet)...");
+  console.log("\n[Step 2] Creating Proposals (2 from each wallet)...");
 
   let currentOwner = await publicClient.readContract({
     address: CONTRACT_ADDRESS,
     abi: VotingABI,
     functionName: "owner",
   });
-  console.log(`Current contract owner: ${currentOwner}`);
+  console.log(`Initial contract owner: ${currentOwner}`);
 
   let proposalCount = Number(
     await publicClient.readContract({
@@ -170,38 +178,17 @@ async function main() {
   );
   console.log(`Current on-chain proposal count: ${proposalCount}`);
 
-  // Display existing proposals
-  for (let i = 1; i <= proposalCount; i++) {
-    const p = await publicClient.readContract({
-      address: CONTRACT_ADDRESS,
-      abi: VotingABI,
-      functionName: "getProposal",
-      args: [BigInt(i)],
-    });
-    console.log(`Existing P#${i}: Proposer=${p[0]} Title="${p[1]}"`);
-  }
-
-  // We need 6 proposals total.
-  // In the current state:
-  // P#1: Proposer=Wallet 1, Title="2. Launch a weekly community call"
-  // P#2: Proposer=Wallet 2, Title="4. Translate the docs into 3 languages"
-  // To reach 2 proposals per wallet:
-  // Wallet 1 creates P#3: "1. Add a community faucet"
-  // Wallet 2 creates P#4: "3. Create a bug bounty pool"
-  // Wallet 3 creates P#5: "5. Redesign the project website"
-  // Wallet 3 creates P#6: "6. Hold a hackathon"
-
   const getTimestamps = async () => {
     const block = await publicClient.getBlock();
-    const startTime = Number(block.timestamp) + 15; // 15 seconds in future to ensure safety
+    const startTime = Number(block.timestamp) + 10; // 10 seconds in future
     const endTime = startTime + 7 * 86400; // 7 days
     return { startTime, endTime };
   };
 
   let maxStartTime = 0;
 
-  // Wallet 1 creates Proposal #3 if count < 3
-  if (proposalCount < 3) {
+  // Wallet 1 creates Proposals #1 and #2
+  if (proposalCount < 2) {
     if (currentOwner.toLowerCase() !== wallet1Account.address.toLowerCase()) {
       console.log(`Transferring ownership from ${currentOwner} to Wallet 1...`);
       const activeOwnerClient =
@@ -216,62 +203,117 @@ async function main() {
         abi: VotingABI,
         functionName: "transferOwnership",
         args: [wallet1Account.address],
+        gasPrice,
       });
       await waitForTx(ownTx);
       currentOwner = wallet1Account.address;
     }
 
-    const p = ALL_PROPOSALS[0]; // "1. Add a community faucet"
-    const { startTime, endTime } = await getTimestamps();
-    if (startTime > maxStartTime) maxStartTime = startTime;
-    console.log(`Wallet 1 creating Proposal #3: "${p.title}"...`);
-    const tx = await wallet1Client.writeContract({
-      address: CONTRACT_ADDRESS,
-      abi: VotingABI,
-      functionName: "createProposal",
-      args: [p.title, p.description, startTime, endTime, 1],
-    });
-    await waitForTx(tx);
-    proposalCount = 3;
+    if (proposalCount < 1) {
+      const p = ALL_PROPOSALS[0]; // "1. Add a community faucet"
+      const { startTime, endTime } = await getTimestamps();
+      if (startTime > maxStartTime) maxStartTime = startTime;
+      console.log(`Wallet 1 creating Proposal #1: "${p.title}"...`);
+      const tx = await wallet1Client.writeContract({
+        address: CONTRACT_ADDRESS,
+        abi: VotingABI,
+        functionName: "createProposal",
+        args: [p.title, p.description, startTime, endTime, 1],
+        gasPrice,
+      });
+      await waitForTx(tx);
+      proposalCount = 1;
+    }
+
+    if (proposalCount < 2) {
+      const p = ALL_PROPOSALS[1]; // "2. Launch a weekly community call"
+      const { startTime, endTime } = await getTimestamps();
+      if (startTime > maxStartTime) maxStartTime = startTime;
+      console.log(`Wallet 1 creating Proposal #2: "${p.title}"...`);
+      const tx = await wallet1Client.writeContract({
+        address: CONTRACT_ADDRESS,
+        abi: VotingABI,
+        functionName: "createProposal",
+        args: [p.title, p.description, startTime, endTime, 1],
+        gasPrice,
+      });
+      await waitForTx(tx);
+      proposalCount = 2;
+    }
   }
 
-  // Wallet 2 creates Proposal #4 if count < 4
+  // Wallet 2 creates Proposals #3 and #4
   if (proposalCount < 4) {
     if (currentOwner.toLowerCase() !== wallet2Account.address.toLowerCase()) {
-      console.log(`Transferring ownership from Wallet 1 to Wallet 2...`);
-      const ownTx = await wallet1Client.writeContract({
+      console.log(`Transferring ownership from ${currentOwner} to Wallet 2...`);
+      const activeOwnerClient =
+        currentOwner.toLowerCase() === wallet1Account.address.toLowerCase()
+          ? wallet1Client
+          : currentOwner.toLowerCase() === concordAccount.address.toLowerCase()
+          ? concordClient
+          : wallet3Client;
+
+      const ownTx = await activeOwnerClient.writeContract({
         address: CONTRACT_ADDRESS,
         abi: VotingABI,
         functionName: "transferOwnership",
         args: [wallet2Account.address],
+        gasPrice,
       });
       await waitForTx(ownTx);
       currentOwner = wallet2Account.address;
     }
 
-    const p = ALL_PROPOSALS[2]; // "3. Create a bug bounty pool"
-    const { startTime, endTime } = await getTimestamps();
-    if (startTime > maxStartTime) maxStartTime = startTime;
-    console.log(`Wallet 2 creating Proposal #4: "${p.title}"...`);
-    const tx = await wallet2Client.writeContract({
-      address: CONTRACT_ADDRESS,
-      abi: VotingABI,
-      functionName: "createProposal",
-      args: [p.title, p.description, startTime, endTime, 1],
-    });
-    await waitForTx(tx);
-    proposalCount = 4;
+    if (proposalCount < 3) {
+      const p = ALL_PROPOSALS[2]; // "3. Create a bug bounty pool"
+      const { startTime, endTime } = await getTimestamps();
+      if (startTime > maxStartTime) maxStartTime = startTime;
+      console.log(`Wallet 2 creating Proposal #3: "${p.title}"...`);
+      const tx = await wallet2Client.writeContract({
+        address: CONTRACT_ADDRESS,
+        abi: VotingABI,
+        functionName: "createProposal",
+        args: [p.title, p.description, startTime, endTime, 1],
+        gasPrice,
+      });
+      await waitForTx(tx);
+      proposalCount = 3;
+    }
+
+    if (proposalCount < 4) {
+      const p = ALL_PROPOSALS[3]; // "4. Translate the docs into 3 languages"
+      const { startTime, endTime } = await getTimestamps();
+      if (startTime > maxStartTime) maxStartTime = startTime;
+      console.log(`Wallet 2 creating Proposal #4: "${p.title}"...`);
+      const tx = await wallet2Client.writeContract({
+        address: CONTRACT_ADDRESS,
+        abi: VotingABI,
+        functionName: "createProposal",
+        args: [p.title, p.description, startTime, endTime, 1],
+        gasPrice,
+      });
+      await waitForTx(tx);
+      proposalCount = 4;
+    }
   }
 
-  // Wallet 3 creates Proposal #5 and #6 if count < 6
+  // Wallet 3 creates Proposals #5 and #6
   if (proposalCount < 6) {
     if (currentOwner.toLowerCase() !== wallet3Account.address.toLowerCase()) {
-      console.log(`Transferring ownership from Wallet 2 to Wallet 3...`);
-      const ownTx = await wallet2Client.writeContract({
+      console.log(`Transferring ownership from ${currentOwner} to Wallet 3...`);
+      const activeOwnerClient =
+        currentOwner.toLowerCase() === wallet2Account.address.toLowerCase()
+          ? wallet2Client
+          : currentOwner.toLowerCase() === wallet1Account.address.toLowerCase()
+          ? wallet1Client
+          : concordClient;
+
+      const ownTx = await activeOwnerClient.writeContract({
         address: CONTRACT_ADDRESS,
         abi: VotingABI,
         functionName: "transferOwnership",
         args: [wallet3Account.address],
+        gasPrice,
       });
       await waitForTx(ownTx);
       currentOwner = wallet3Account.address;
@@ -287,6 +329,7 @@ async function main() {
         abi: VotingABI,
         functionName: "createProposal",
         args: [p.title, p.description, startTime, endTime, 1],
+        gasPrice,
       });
       await waitForTx(tx);
       proposalCount = 5;
@@ -302,6 +345,7 @@ async function main() {
         abi: VotingABI,
         functionName: "createProposal",
         args: [p.title, p.description, startTime, endTime, 1],
+        gasPrice,
       });
       await waitForTx(tx);
       proposalCount = 6;
@@ -314,6 +358,7 @@ async function main() {
       abi: VotingABI,
       functionName: "transferOwnership",
       args: [concordAccount.address],
+      gasPrice,
     });
     await waitForTx(ownTx);
     currentOwner = concordAccount.address;
@@ -348,9 +393,9 @@ async function main() {
   console.log("\n[Step 3] Casting Votes on All 6 Proposals from each of the 3 wallets...");
 
   // Vote choices: 0 = Against, 1 = For, 2 = Abstain
-  const votesW1 = [1, 1, 1, 0, 1, 2];
-  const votesW2 = [1, 0, 1, 1, 0, 1];
-  const votesW3 = [2, 1, 1, 1, 1, 0];
+  const votesW1 = [1, 1, 0, 1, 2, 1];
+  const votesW2 = [1, 0, 1, 1, 1, 0];
+  const votesW3 = [2, 1, 1, 0, 1, 1];
 
   const voters = [
     { name: "Wallet 1", client: wallet1Client, account: wallet1Account, choices: votesW1 },
@@ -391,6 +436,7 @@ async function main() {
         abi: VotingABI,
         functionName: "castVote",
         args: [BigInt(proposalId), choice],
+        gasPrice,
       });
       await waitForTx(hash);
     }
@@ -398,7 +444,7 @@ async function main() {
 
   // Final Summary & Verification
   console.log("\n==================================================");
-  console.log("FINAL STATUS VERIFICATION");
+  console.log("FINAL STATUS VERIFICATION ON BOTCHAIN MAINNET");
   console.log("==================================================");
 
   const finalProposalCount = await publicClient.readContract({
@@ -416,7 +462,7 @@ async function main() {
       args: [BigInt(id)],
     });
     console.log(
-      `Proposal #${id}: "${p[1]}" | For: ${p[5]}, Against: ${p[6]}, Abstain: ${p[7]} | State: ${p[11]}`
+      `Proposal #${id}: "${p[1]}" | Proposer: ${p[0]} | For: ${p[5]}, Against: ${p[6]}, Abstain: ${p[7]} | State: ${p[11]}`
     );
   }
 
@@ -451,4 +497,3 @@ main().catch((err) => {
   console.error("Execution failed:", err);
   process.exit(1);
 });
-
