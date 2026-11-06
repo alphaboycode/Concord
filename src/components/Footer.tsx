@@ -177,7 +177,7 @@ export const Footer: React.FC = () => {
 
           {/* Slogan */}
           <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm tracking-wide">
-            Tipped, thanked, on chain
+            One Address, One Vote. Zero Plutocracy. 100% On-Chain Consensus.
           </p>
 
           {/* Diamond Separator */}
