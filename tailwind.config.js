@@ -19,15 +19,15 @@ export default {
           accent: "#00F29D",
         },
         civic: {
-          darkBg: "#070A10",       // Deep luxurious midnight obsidian
-          darkCard: "#0F131D",     // Sleek slate navy card surface
-          darkCardHover: "#161B29",// Interactive hover card
-          darkBorder: "#1C2333",   // Subtle refined dark border
-          darkBorderGlow: "#2D3748",
-          lightBg: "#F6F8FA",      // Crisp editorial porcelain
+          darkBg: "#1c1f26",       // Sophisticated charcoal slate matching concord.jpeg background
+          darkCard: "#242832",     // Elevated matte slate surface
+          darkCardHover: "#2c313d",// Interactive hover card
+          darkBorder: "#353b49",   // Subtle refined charcoal border
+          darkBorderGlow: "#464f62",
+          lightBg: "#F0F2F5",      // Crisp platinum-slate porcelain
           lightCard: "#FFFFFF",
-          lightCardHover: "#F9FAFB",
-          lightBorder: "#E3E8EE",
+          lightCardHover: "#F8FAFC",
+          lightBorder: "#E2E6EB",
         },
       },
       fontFamily: {

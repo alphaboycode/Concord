@@ -127,18 +127,23 @@ export const ProposalList: React.FC<ProposalListProps> = ({
 
       {/* Hero / Header Row */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-        <div>
-          <div className="flex items-center space-x-2 mb-1.5">
-            <span className="text-xs uppercase tracking-widest font-mono text-brand-600 dark:text-brand-400 font-semibold">
-              Democracy in Action
-            </span>
+        <div className="flex items-start space-x-4">
+          <div className="hidden sm:block w-12 h-12 rounded-2xl overflow-hidden border border-amber-500/30 shadow-md bg-slate-900 flex-shrink-0 mt-0.5">
+            <img src="/concord.jpeg" alt="Concord Emblem" className="w-full h-full object-cover" />
           </div>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Civic Proposals
-          </h1>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
-            Vote on community ballots, shape protocol parameters, and steer the future of BotChain with verifiable on-chain governance.
-          </p>
+          <div>
+            <div className="flex items-center space-x-2 mb-1">
+              <span className="text-xs uppercase tracking-widest font-mono text-amber-600 dark:text-amber-400 font-semibold">
+                Democracy in Action
+              </span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+              Civic Proposals
+            </h1>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
+              Vote on community ballots, shape protocol parameters, and steer the future of BotChain with verifiable on-chain governance.
+            </p>
+          </div>
         </div>
 
         <div className="flex items-center space-x-3">

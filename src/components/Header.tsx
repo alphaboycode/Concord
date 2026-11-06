@@ -77,14 +77,18 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCreate, isOwner }) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/85 dark:bg-[#070A10]/90 border-b border-slate-200/80 dark:border-slate-800/80 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_30px_-4px_rgba(0,0,0,0.6)] transition-all duration-200">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/90 dark:bg-civic-darkBg/95 border-b border-slate-200/80 dark:border-civic-darkBorder shadow-[0_4px_24px_-4px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_30px_-4px_rgba(0,0,0,0.5)] transition-all duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand / Logo Area */}
         <div className="flex items-center space-x-3.5">
           <div className="relative group cursor-pointer">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-2xl blur-sm opacity-60 group-hover:opacity-100 transition duration-200" />
-            <div className="relative w-11 h-11 rounded-xl bg-slate-900 border border-emerald-500/40 flex items-center justify-center text-white shadow-inner">
-              <Shield className="w-5 h-5 text-emerald-400" />
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-500/50 via-teal-500/40 to-cyan-500/50 rounded-2xl blur-sm opacity-60 group-hover:opacity-100 transition duration-200" />
+            <div className="relative w-11 h-11 rounded-xl overflow-hidden bg-slate-900 border border-amber-500/30 shadow-md flex items-center justify-center">
+              <img
+                src="/concord.jpeg"
+                alt="Concord Logo"
+                className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
+              />
             </div>
           </div>
           <div>
@@ -92,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCreate, isOwner }) => {
               <span className="font-extrabold text-2xl tracking-tight text-slate-900 dark:text-white bg-clip-text">
                 Concord
               </span>
-              <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+              <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30">
                 Civic DAO
               </span>
             </div>

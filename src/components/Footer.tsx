@@ -7,8 +7,8 @@ import {
   Check,
   FileText,
   Activity,
-  Layers,
-  Heart,
+  Globe,
+  Search,
 } from "lucide-react";
 
 export const Footer: React.FC = () => {
@@ -24,20 +24,24 @@ export const Footer: React.FC = () => {
     CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000";
 
   return (
-    <footer className="w-full border-t border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-[#070A10]/85 backdrop-blur-xl transition-all duration-200 mt-auto">
+    <footer className="w-full border-t border-slate-200/80 dark:border-civic-darkBorder bg-white/70 dark:bg-civic-darkBg/95 backdrop-blur-xl transition-all duration-200 mt-auto">
       {/* Upper Content Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Col 1: Brand & Description */}
           <div className="md:col-span-2 space-y-3">
             <div className="flex items-center space-x-2.5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center text-white shadow-sm">
-                <ShieldCheck className="w-4 h-4 text-slate-950" />
+              <div className="w-8 h-8 rounded-lg overflow-hidden border border-amber-500/30 shadow-sm flex items-center justify-center bg-slate-900">
+                <img
+                  src="/concord.jpeg"
+                  alt="Concord Logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <span className="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
                 Concord Governance
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                 v1.0
               </span>
             </div>
@@ -111,40 +115,29 @@ export const Footer: React.FC = () => {
           {/* Col 3: Links & Resources */}
           <div className="space-y-2.5">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 font-mono">
-              Ecosystem & Links
+              Protocol Resources
             </h4>
             <ul className="space-y-2 text-xs">
-              <li>
-                <a
-                  href="https://www.botchain.ai/en/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center space-x-1.5 text-slate-600 dark:text-slate-400 hover:text-emerald-500 dark:hover:text-emerald-400 font-medium transition-colors"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 text-emerald-500" />
-                  <span>BOT Chain Website</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://scan.botchain.ai/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center space-x-1.5 text-slate-600 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 font-medium transition-colors"
-                >
-                  <Activity className="w-3.5 h-3.5 text-cyan-500" />
-                  <span>BOTScan explorer</span>
-                </a>
-              </li>
               <li>
                 <a
                   href="/Concord_Pitch_Deck.pdf"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center space-x-1.5 text-slate-600 dark:text-slate-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors"
+                  className="inline-flex items-center space-x-1.5 text-slate-600 dark:text-slate-400 hover:text-emerald-500 dark:hover:text-emerald-400 font-medium transition-colors"
                 >
                   <FileText className="w-3.5 h-3.5 text-emerald-500" />
                   <span>Pitch Deck (PDF)</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={addressUrl(CONTRACT_ADDRESS)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center space-x-1.5 text-slate-600 dark:text-slate-400 hover:text-emerald-500 dark:hover:text-emerald-400 font-medium transition-colors"
+                >
+                  <Activity className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>BOTScan Explorer</span>
                 </a>
               </li>
               <li>
@@ -155,22 +148,75 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Sub-Bar */}
-      <div className="border-t border-slate-200/60 dark:border-slate-800/60 py-4 bg-slate-50/50 dark:bg-[#05070B]/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500 dark:text-slate-500">
-          <div>
-            &copy; {new Date().getFullYear()} Concord Protocol &bull; MIT Open Source License
+        {/* Subtle Divider */}
+        <div className="border-t border-slate-200/80 dark:border-civic-darkBorder my-8" />
+
+        {/* PART OF THE ECOSYSTEM Section */}
+        <div className="flex flex-col items-center justify-center text-center space-y-4 max-w-xl mx-auto pt-2 pb-6">
+          <div className="text-emerald-600 dark:text-emerald-400 font-semibold text-xs tracking-[0.25em] uppercase font-mono">
+            PART OF THE ECOSYSTEM
           </div>
-          <div className="flex items-center space-x-4">
-            <span className="flex items-center space-x-1 text-slate-400">
-              <span>Engineered with precision for</span>
-              <span className="font-semibold text-slate-700 dark:text-slate-300">BotChain</span>
-            </span>
+
+          {/* Circular Logo Badge */}
+          <div className="relative flex items-center justify-center p-2">
+            <div className="w-24 h-24 rounded-full bg-slate-100 dark:bg-civic-darkCard border border-emerald-500/30 dark:border-emerald-500/30 flex items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.18)] ring-4 ring-emerald-500/10 transition-transform duration-300 hover:scale-105">
+              <img
+                src="/botchainlogo.svg"
+                alt="BOT Chain Logo"
+                className="w-12 h-12 object-contain select-none"
+              />
+            </div>
+          </div>
+
+          {/* BOT Chain Name */}
+          <div className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            <span className="text-emerald-500 dark:text-emerald-400">BOT</span>{" "}
+            <span className="text-slate-900 dark:text-white">Chain</span>
+          </div>
+
+          {/* Slogan */}
+          <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm tracking-wide">
+            Tipped, thanked, on chain
+          </p>
+
+          {/* Diamond Separator */}
+          <div className="flex items-center justify-center gap-3 w-40 mx-auto py-1">
+            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-emerald-500/50" />
+            <div className="w-1.5 h-1.5 rotate-45 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+            <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-emerald-500/50" />
+          </div>
+
+          {/* Links: botchain.ai & Explorer (no GitHub) */}
+          <div className="flex items-center justify-center gap-8 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            <a
+              href="https://www.botchain.ai/en/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition group font-medium"
+            >
+              <Globe className="w-4 h-4 text-slate-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition" />
+              <span>botchain.ai</span>
+            </a>
+            <a
+              href={addressUrl(CONTRACT_ADDRESS)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition group font-medium"
+              title={`View Concord Contract (${CONTRACT_ADDRESS}) on BOTScan`}
+            >
+              <Search className="w-4 h-4 text-slate-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition" />
+              <span>Explorer</span>
+            </a>
+          </div>
+
+          {/* Footer Copyright Line */}
+          <div className="pt-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-sans tracking-wide">
+            &copy; 2026 <strong className="text-slate-800 dark:text-white font-semibold">BOT Chain</strong> &bull; Mainnet &bull; Chain ID <strong className="text-slate-800 dark:text-white font-semibold">677</strong>
           </div>
         </div>
       </div>
+
     </footer>
   );
 };
